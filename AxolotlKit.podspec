@@ -17,6 +17,7 @@ Pod::Spec.new do |s|
   
   s.dependency            'Curve25519Kit',   '~> 2.1.0'
   s.dependency            'HKDFKit', '~> 0.0.3'
+  s.dependency            'ProtocolBuffers', '~> 1.9.8'
   s.dependency            'CocoaLumberjack'
   s.dependency            'SwiftProtobuf'
   s.dependency            'SignalCoreKit'
