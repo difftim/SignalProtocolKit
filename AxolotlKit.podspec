@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.requires_arc          = true
   
   s.dependency            'Curve25519Kit',   '~> 2.1.0'
-  s.dependency            'HKDFKit', '~> 0.0.3'
+  s.dependency            'HKDFKit'
   s.dependency            'ProtocolBuffers', '~> 1.9.8'
   s.dependency            'CocoaLumberjack'
   s.dependency            'SwiftProtobuf'
