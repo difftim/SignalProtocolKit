@@ -201,6 +201,8 @@ const int kPreKeyOfLastResortId = 0xFFFFFF;
     if ([sessionRecord hasSessionState:message.version baseKey:baseKey]) {
         return -1;
     }
+    
+    NSString *sessionInfo = [NSString stringWithFormat:@"message version = %d, sessionState.version = %d; message baseKey = %@, sessionState.baseKey = %@ previousSessionStates.count = %lu", message.version, sessionRecord.sessionState.version, baseKey, sessionRecord.sessionState.aliceBaseKey, (unsigned long)sessionRecord.previousSessionStates.count];
 
     SignedPreKeyRecord *_Nullable signedPreKeyRecord = [self.signedPreKeyStore loadSignedPreKey:message.signedPrekeyId
                                                                                 protocolContext:protocolContext];
@@ -211,7 +213,7 @@ const int kPreKeyOfLastResortId = 0xFFFFFF;
         OWSLogWarn(@"Available signed prekey ids: %@",
                   [self.signedPreKeyStore availableSignedPreKeyIdsWithProtocolContext:protocolContext]);
 
-        OWSRaiseException(InvalidKeyIdException, @"No signed prekey found matching key id");
+        OWSRaiseException(InvalidKeyIdException, @"No signed prekey found matching key id: %lu, %@", (unsigned long)message.signedPrekeyId, sessionInfo);
     }
     ECKeyPair *ourSignedPrekey = signedPreKeyRecord.keyPair;
 
@@ -221,7 +223,7 @@ const int kPreKeyOfLastResortId = 0xFFFFFF;
                                                       protocolContext:protocolContext];
         if (preKey == nil) {
             OWSFailDebug(@"Missing prekeyID: %lu", (unsigned long) message.prekeyID);
-            OWSRaiseException(InvalidKeyIdException, @"No pre key found matching key id");
+            OWSRaiseException(InvalidKeyIdException, @"No pre key found matching key id: %lu, %@", (unsigned long)message.prekeyID, sessionInfo);
         }
         ourOneTimePreKey = preKey.keyPair;
     } else {

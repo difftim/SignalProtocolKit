@@ -59,7 +59,7 @@
     }
     
     for (SessionState *state in self.previousStates) {
-        if (state.version == version && [aliceBaseKey isEqualToData:self.sessionState.aliceBaseKey]) {
+        if (state.version == version && [aliceBaseKey isEqualToData:state.aliceBaseKey]) {
             return YES;
         }
     }
