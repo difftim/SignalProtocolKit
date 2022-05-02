@@ -202,7 +202,7 @@ const int kPreKeyOfLastResortId = 0xFFFFFF;
         return -1;
     }
     
-    NSString *sessionInfo = [NSString stringWithFormat:@"message version = %d, sessionState.version = %d; message baseKey = %@, sessionState.baseKey = %@ previousSessionStates.count = %lu", message.version, sessionRecord.sessionState.version, baseKey, sessionRecord.sessionState.aliceBaseKey, (unsigned long)sessionRecord.previousSessionStates.count];
+    NSString *sessionInfo = [NSString stringWithFormat:@"message version = %d, sessionState.version = %d; message baseKey = %lu, sessionState.baseKey = %lu previousSessionStates.count = %lu", message.version, sessionRecord.sessionState.version, baseKey.length, sessionRecord.sessionState.aliceBaseKey.length, (unsigned long)sessionRecord.previousSessionStates.count];
 
     SignedPreKeyRecord *_Nullable signedPreKeyRecord = [self.signedPreKeyStore loadSignedPreKey:message.signedPrekeyId
                                                                                 protocolContext:protocolContext];
