@@ -15,7 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 // Defaults to NO.  Should only be set after the service accepts this record.
 @property (nonatomic, readonly) BOOL wasAcceptedByService;
 
-- (instancetype)initWithId:(int)identifier keyPair:(ECKeyPair *)keyPair signature:(NSData*)signature generatedAt:(NSDate*)generatedAt;
+@property (nonatomic, readonly) BOOL newFlag;
+
+- (instancetype)initWithId:(int)identifier keyPair:(ECKeyPair *)keyPair signature:(NSData*)signature generatedAt:(NSDate*)generatedAt newFlag:(BOOL)newFlag;
 - (instancetype)initWithId:(int)identifier keyPair:(ECKeyPair *)keyPair NS_UNAVAILABLE;
 
 - (void)markAsAcceptedByService;

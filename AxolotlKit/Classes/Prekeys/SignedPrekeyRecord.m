@@ -11,6 +11,7 @@ static NSString* const kCoderPreKeyPair      = @"kCoderPreKeyPair";
 static NSString* const kCoderPreKeyDate      = @"kCoderPreKeyDate";
 static NSString* const kCoderPreKeySignature = @"kCoderPreKeySignature";
 static NSString *const kCoderPreKeyWasAcceptedByService = @"kCoderPreKeyWasAcceptedByService";
+static NSString *const kCoderPreKeyNewFlag = @"kCoderPreKeyNewFlag";
 
 @implementation SignedPreKeyRecord
 
@@ -23,6 +24,7 @@ static NSString *const kCoderPreKeyWasAcceptedByService = @"kCoderPreKeyWasAccep
                  signature:(NSData *)signature
                generatedAt:(NSDate *)generatedAt
       wasAcceptedByService:(BOOL)wasAcceptedByService
+                   newFlag:(BOOL)newFlag
 {
     OWSAssert(keyPair);
     OWSAssert(signature);
@@ -36,12 +38,13 @@ static NSString *const kCoderPreKeyWasAcceptedByService = @"kCoderPreKeyWasAccep
         _signature = signature;
         _generatedAt = generatedAt;
         _wasAcceptedByService = wasAcceptedByService;
+        _newFlag = newFlag;
     }
 
     return self;
 }
 
-- (instancetype)initWithId:(int)identifier keyPair:(ECKeyPair *)keyPair signature:(NSData*)signature generatedAt:(NSDate *)generatedAt{
+- (instancetype)initWithId:(int)identifier keyPair:(ECKeyPair *)keyPair signature:(NSData*)signature generatedAt:(NSDate *)generatedAt newFlag:(BOOL)newFlag{
     self = [super initWithId:identifier
                      keyPair:keyPair
                    createdAt:generatedAt];
@@ -49,6 +52,7 @@ static NSString *const kCoderPreKeyWasAcceptedByService = @"kCoderPreKeyWasAccep
     if (self) {
         _signature = signature;
         _generatedAt = generatedAt;
+        _newFlag = newFlag;
     }
     
     return self;
@@ -59,7 +63,8 @@ static NSString *const kCoderPreKeyWasAcceptedByService = @"kCoderPreKeyWasAccep
                      keyPair:[aDecoder decodeObjectOfClass:[ECKeyPair class] forKey:kCoderPreKeyPair]
                    signature:[aDecoder decodeObjectOfClass:[NSData class] forKey:kCoderPreKeySignature]
                  generatedAt:[aDecoder decodeObjectOfClass:[NSDate class] forKey:kCoderPreKeyDate]
-        wasAcceptedByService:[aDecoder decodeBoolForKey:kCoderPreKeyWasAcceptedByService]];
+        wasAcceptedByService:[aDecoder decodeBoolForKey:kCoderPreKeyWasAcceptedByService]
+                     newFlag:[aDecoder decodeBoolForKey:kCoderPreKeyNewFlag]];
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder{
@@ -68,6 +73,7 @@ static NSString *const kCoderPreKeyWasAcceptedByService = @"kCoderPreKeyWasAccep
     [aCoder encodeObject:self.signature forKey:kCoderPreKeySignature];
     [aCoder encodeObject:self.generatedAt forKey:kCoderPreKeyDate];
     [aCoder encodeBool:self.wasAcceptedByService forKey:kCoderPreKeyWasAcceptedByService];
+    [aCoder encodeBool:self.newFlag forKey:kCoderPreKeyNewFlag];
 }
 
 - (instancetype)initWithId:(int)identifier keyPair:(ECKeyPair*)keyPair{
