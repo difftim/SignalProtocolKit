@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.dependency            'HKDFKit'
   s.dependency            'ProtocolBuffers', '~> 1.9.8'
   s.dependency            'CocoaLumberjack'
-  s.dependency            'SwiftProtobuf', '~> 1.9.0'
+  s.dependency            'SwiftProtobuf', '~> 1.15.0'
   s.dependency            'SignalCoreKit'
 
   s.test_spec 'Tests' do |test_spec|
